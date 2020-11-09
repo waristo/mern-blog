@@ -22,6 +22,7 @@ router.post("/", async (req, res, next) => {
       fileUrl,
       creator,
     });
+    res.json(newPost);
   } catch (e) {
     console.log(e);
   }

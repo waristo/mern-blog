@@ -1,6 +1,12 @@
 import express from "express";
+import hpp from "hpp";
 import mongoose from "mongoose";
 import config from "./config";
+import helmet from "helmet";
+import cors from "cors";
+
+import postsRoutes from "./routes/api/post";
+import morgan from "morgan";
 
 const app = express();
 const { MONGO_URI } = config;
@@ -17,11 +23,13 @@ mongoose
   .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   })
   .then(() => console.log("MongoDB connecting success!!"))
   .catch((e) => console.log(e));
 
 // Use routes
 app.get("/");
+app.use("/api/post", postsRoutes);
 
 export default app;
